@@ -12,17 +12,26 @@ public class EnemyPatrol : MonoBehaviour
     public Transform[] waypoints;
 
     [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     //Variable pour stocker le point de passage vers lequel l'ennemie ce dirige
     private Transform target;
     //Variable pour stocker l'index du point de passage vers lequel l'ennemie ce dirige (Le même que celui de la variable target)
     private int destPoint = 0;
+    //Variable pour stocker le weakSpot de l'ennemie
+    private BoxCollider2D weakPoint;
 
     // Start is called before the first frame update
     void Start()
     {
+        //On initialise le point de passage de l'ennemie à son premier point de passage
         target = waypoints[0];
+
+        //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
+        CreateBoxCollider2D(new Vector2(0f, 0.08f), new Vector2(0.14f, 0.02f));
     }
 
     // Update is called once per frame
@@ -40,8 +49,21 @@ public class EnemyPatrol : MonoBehaviour
             target = waypoints[destPoint];
         }
 
-        Flip(dir.x);
+        if(weakPoint.IsTouching(player.GetComponent<CircleCollider2D>()))
+        {
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 160.0f)); ;
+            Destroy(transform.parent.gameObject);
+        }
 
+        Flip(dir.x);
+    }
+
+    void CreateBoxCollider2D(Vector2 offset, Vector2 size)
+    {
+        BoxCollider2D boxCollider2D = gameObject.AddComponent<BoxCollider2D>();
+        boxCollider2D.offset = offset;
+        boxCollider2D.size = size;
+        weakPoint = boxCollider2D;
     }
 
     void Flip(float speed)
