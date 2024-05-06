@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
         //Check if the player is grounded and if the player press the jump button (make him jump)
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
-            Debug.Log("Jumping");
             isJumping = true;
         }
 

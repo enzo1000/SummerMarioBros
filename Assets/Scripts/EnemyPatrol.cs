@@ -21,7 +21,7 @@ public class EnemyPatrol : MonoBehaviour
     private Transform target;
     //Variable pour stocker l'index du point de passage vers lequel l'ennemie ce dirige (Le même que celui de la variable target)
     private int destPoint = 0;
-    //Variable pour stocker le weakSpot de l'ennemie
+    //Variable pour stocker le weakSpot de l'ennemie et le réutiliser pour vérifier si le joueur est en collision avec
     private BoxCollider2D weakPoint;
 
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class EnemyPatrol : MonoBehaviour
         target = waypoints[0];
 
         //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
-        CreateBoxCollider2D(new Vector2(0f, 0.08f), new Vector2(0.14f, 0.02f));
+        CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
     }
 
     // Update is called once per frame
@@ -64,6 +64,15 @@ public class EnemyPatrol : MonoBehaviour
         boxCollider2D.offset = offset;
         boxCollider2D.size = size;
         weakPoint = boxCollider2D;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage();
+        }
     }
 
     void Flip(float speed)
