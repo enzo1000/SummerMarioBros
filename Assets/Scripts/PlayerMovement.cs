@@ -1,81 +1,92 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class playerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Transform groundCheckL, groundCheckR;
+    private Rigidbody2D rb;
+    public LayerMask groundLayer;
+    private Animator anim;
 
-    [SerializeField]
-    private float movementSpeed;
+    public float speed;
+    public float gravity;
+    public float jumpVelocity = 20;
 
-    [SerializeField]
-    private float jumpForce;
+    private float Move;
+    private Vector2 velocity;
+    
+    private bool isFacingRight;
+    public bool isGrounded = true;
 
-    [SerializeField]
-    private Animator animator;
+    void Start()
+    {
+        isFacingRight = true;
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        velocity = rb.velocity;
+    }
 
-    [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    void Update()
+    {
 
-    public Rigidbody2D rb;
-    private Vector3 velocity = Vector3.zero;
-    private bool isJumping = false;
-    private bool isGrounded;
 
-    //FixedUpdate is called once per physics update (and not on frames)
+        Move = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(Move * speed, rb.velocity.y);
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+        {
+            velocity.y = jumpVelocity;
+            rb.velocity = new Vector2(rb.velocity.x, velocity.y);
+            isGrounded = false;
+
+        }
+        //Animation
+        if (Move != 0)
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
+        }
+
+        if (!isFacingRight && Move > 0)
+        {
+            Flip();
+        }
+        else if (isFacingRight && Move < 0)
+        {
+            Flip();
+        }
+    }
+
+
     void FixedUpdate()
     {
-        //Créer une boite de collision entre les deux points groundCheckL et groundCheckR
-        isGrounded = Physics2D.OverlapArea(groundCheckL.position, groundCheckR.position);
-
-        float horizontalMovement = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
-
-        //Check if the player is grounded and if the player press the jump button (make him jump)
-        if (Input.GetButtonDown("Jump") && isGrounded == true)
+        if (!isGrounded)
         {
-            isJumping = true;
+            velocity.y += gravity * Time.fixedDeltaTime;
+            rb.velocity = new Vector2(rb.velocity.x, velocity.y);
         }
-
-        SpriteFlip(horizontalMovement);
-        MovePlayer(horizontalMovement);
     }
 
-    //Flip the sprite of the player depending on the direction he is moving
-    // and also change the animation from idle to walk
-    private void SpriteFlip(float horizontalMovement)
+
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        //Send the absolute value of the horizontal movement to the animator to change the animation (idle -> walk)
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
-        
-        //If the player is moving left, flip the sprite to the left
-        if (horizontalMovement < -0.1f)
+        if (collision.gameObject.tag == "Ground")
         {
-            spriteRenderer.flipX = true;
+           isGrounded = true;
         }
-        //Else, if the player is moving right, flip the sprite to the right
-        else if (horizontalMovement > 0.1f)
-        {
-            spriteRenderer.flipX = false;
-        }
+
     }
 
-    //Move the player on the x axis (smoothDamp) and make him jump (AddForce)
-    private void MovePlayer(float horizontalMovement)
+    
+
+    public void Flip()
     {
-        //On se déplace sur l'axe x, l'axe y reste inchangé (no Z axis on a 2D vector)
-        Vector3 targetVelocity = new Vector2(horizontalMovement, rb.velocity.y);
-        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, 0.05f);
-
-        if(isJumping)
-        {
-            rb.AddForce(new Vector2(0f, jumpForce));
-            isJumping = false;
-        }
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
-
-
 
 }
