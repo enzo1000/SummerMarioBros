@@ -37164,32 +37164,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 513239609042355342, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5651856
-      objectReference: {fileID: 0}
-    - target: {fileID: 513239609042355342, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.218519
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695644791517518505, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
       propertyPath: m_Name
       value: Gum Bot
       objectReference: {fileID: 0}
     - target: {fileID: 2559303795274302483, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: speed
-      value: 5
+      propertyPath: jumpHeight
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2559303795274302483, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: gravity
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2559303795274302483, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: isGrounded
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2559303795274302483, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 64
+      propertyPath: timeToJumpApex
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5636153119667151111, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37231,10 +37219,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7578015585037763010, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+      propertyPath: m_Radius
+      value: 0.20206198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578015585037763010, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.4073461
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578015585037763010, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 504158292119085703, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
-    - {fileID: 986553151425670326, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
