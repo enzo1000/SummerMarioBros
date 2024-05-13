@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private float Move; // Stocke la valeur de l'axe horizontal
     private bool isFacingRight; // Stocke la direction du joueur
     private GroundedTest groundedTester; // Référence au script GroundedTest
+    private bool jump = false; // Stocke l'état du saut
 
     void Start()
     {
@@ -34,11 +35,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
+        //rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
 
         if (Input.GetKeyDown(KeyCode.Space) && groundedTester.isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); // Saut
+            jump = true; // Saut
         }
 
         anim.SetBool("isRunning", Mathf.Abs(Move) > 0); // Animation de course
@@ -51,6 +52,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
+
+        if (jump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); // Saut
+            jump = false;
+        }
+
         // Applique la gravité calculée lorsque le joueur n'est pas au sol
         if (!groundedTester.isGrounded)
         {

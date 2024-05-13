@@ -49,7 +49,6 @@ public class EnemyPatrol : MonoBehaviour
             target = waypoints[destPoint];
         }
 
-        
         if(weakPoint.IsTouching(player.GetComponent<CircleCollider2D>()))
         {
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 160.0f)); ;
