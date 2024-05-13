@@ -148,7 +148,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 725802601694108313}
   - {fileID: 1973381621840462086}
-  player: {fileID: 0}
+  player: {fileID: 1695644791517518505, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
   spriteRenderer: {fileID: 6986417790777327262}
 --- !u!95 &5314143237545578804
 Animator:

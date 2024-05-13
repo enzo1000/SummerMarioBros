@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7578015585037763010}
   - component: {fileID: 3803912912125329792}
   m_Layer: 0
-  m_Name: Gum Bot
+  m_Name: Gum_Bot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1695644791517518505}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a834181f76fd3e1409603508d6baab87, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
