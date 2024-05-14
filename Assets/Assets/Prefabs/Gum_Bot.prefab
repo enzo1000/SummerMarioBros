@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.515, y: -1.723, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 7.183976, y: 7.183976, z: 2.8735905}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6226720824933865118}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 367857567, guid: 69b71babf2c483c4288ae35f9f619c35, type: 3}
+  m_Sprite: {fileID: 773134176, guid: add8e3092dd1b6947ab8c9e85555e781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -177,18 +177,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.002855599, y: -0.218519}
+  m_Offset: {x: -0.0092455745, y: -0.00086896867}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5103748, y: 0.5651856}
+  m_Size: {x: 0.21863115, y: 0.3246013}
   m_EdgeRadius: 0
 --- !u!58 &7578015585037763010
 CircleCollider2D:
@@ -222,9 +222,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012445497, y: -0.4073461}
+  m_Offset: {x: -0.004619591, y: -0.14999998}
   serializedVersion: 2
-  m_Radius: 0.20206198
+  m_Radius: 0.07060313
 --- !u!95 &3803912912125329792
 Animator:
   serializedVersion: 5
@@ -311,7 +311,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.2898014, y: -0.2816807}
+  m_Offset: {x: -1.315777, y: 0.5232818}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -322,7 +322,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7183192, y: 0.4366386}
+  m_Size: {x: 0.32002664, y: 0.16891432}
   m_EdgeRadius: 0
 --- !u!114 &49686009920270983
 MonoBehaviour:
