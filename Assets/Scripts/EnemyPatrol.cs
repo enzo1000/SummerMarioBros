@@ -51,7 +51,9 @@ public class EnemyPatrol : MonoBehaviour
 
         if(weakPoint.IsTouching(player.GetComponent<CircleCollider2D>()))
         {
-            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 160.0f)); ;
+            //Permet de normaliser la vélocité du joueur pour éviter d'avoir une inconsistance sur la hauteur de saut
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x, 0f);
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500.0f));
             Destroy(transform.parent.gameObject);
         }
 
