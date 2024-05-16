@@ -50,10 +50,15 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isRunning", Mathf.Abs(Move) > 0); // Animation de course
 
+        anim.SetBool("isJumping", !groundedTester.isGrounded); // Animation de saut
+
+
         if ((!isFacingRight && Move > 0) || (isFacingRight && Move < 0))
         {
             Flip(); // Retourne le joueur si nécessaire
         }
+
+        
     }
 
     void FixedUpdate()
