@@ -83,13 +83,6 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerSpawn()
     {
-        if (isFacingRight)
-        {
-            playerSpawn.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-        }
-        else
-        {
-            playerSpawn.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-        }
+        playerSpawn.transform.position = gameObject.transform.position;
     }
 }
