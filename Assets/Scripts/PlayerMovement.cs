@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         Move = Input.GetAxis("Horizontal");
         //rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
 
-        if (Input.GetKeyDown(KeyCode.Space) && groundedTester.isGrounded)
+        if (Input.GetKey(KeyCode.Space) && groundedTester.isGrounded)
         {
             jump = true; // Saut
         }
