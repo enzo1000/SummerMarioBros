@@ -32,8 +32,8 @@ Transform:
   m_GameObject: {fileID: 1695644791517518505}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.515, y: -1.723, z: 0}
-  m_LocalScale: {x: 7.183976, y: 7.183976, z: 2.8735905}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.183976, y: 7.183976, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6226720824933865118}
@@ -177,7 +177,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0092455745, y: -0.00086896867}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -188,7 +188,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21863115, y: 0.3246013}
+  m_Size: {x: 0.15, y: 0.31}
   m_EdgeRadius: 0
 --- !u!58 &7578015585037763010
 CircleCollider2D:
@@ -222,9 +222,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004619591, y: -0.14999998}
+  m_Offset: {x: 0, y: -0.15}
   serializedVersion: 2
-  m_Radius: 0.07060313
+  m_Radius: 0.06380546
 --- !u!95 &3803912912125329792
 Animator:
   serializedVersion: 5
@@ -273,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 1755178680246611052}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.521028, y: -0.38813, z: 1.3926132}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -311,7 +311,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.315777, y: 0.5232818}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -322,7 +322,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32002664, y: 0.16891432}
+  m_Size: {x: 0.3, y: 0.16891432}
   m_EdgeRadius: 0
 --- !u!114 &49686009920270983
 MonoBehaviour:

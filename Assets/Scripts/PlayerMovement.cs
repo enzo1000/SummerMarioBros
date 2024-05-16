@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb; // Référence au Rigidbody2D
     private Animator anim; // Référence à l'Animator
+    private GameObject playerSpawn; // Référence au point de spawn du joueur
 
     public float speed; // Vitesse de déplacement   
     public float jumpHeight = 6f; // Hauteur désirée pour le saut
@@ -25,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
+        playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn"); // Récupère le GameObject avec le tag "PlayerSpawn"
+
         // Calcul de la gravité et de la vélocité de saut basées sur la hauteur de saut et le temps pour atteindre l'apex
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -37,9 +40,12 @@ public class PlayerMovement : MonoBehaviour
         Move = Input.GetAxis("Horizontal");
         //rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
 
-        if (Input.GetKey(KeyCode.Space) && groundedTester.isGrounded)
-        {
-            jump = true; // Saut
+        if (groundedTester.isGrounded) {  //Si notre personnage est au sol alors
+            UpdatePlayerSpawn();          // Met à jour le point de spawn du joueur
+
+            if (Input.GetKey(KeyCode.Space)) {  //Si notre joueur a la touche espace enfoncée
+                jump = true;                    // Saut
+            }
         }
 
         anim.SetBool("isRunning", Mathf.Abs(Move) > 0); // Animation de course
@@ -73,5 +79,17 @@ public class PlayerMovement : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    void UpdatePlayerSpawn()
+    {
+        if (isFacingRight)
+        {
+            playerSpawn.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        }
+        else
+        {
+            playerSpawn.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        }
     }
 }
