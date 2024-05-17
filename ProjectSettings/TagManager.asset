@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - PlayerSpawn
+  - LifePoints
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

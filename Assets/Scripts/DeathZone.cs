@@ -17,6 +17,8 @@ public class DeathZone : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.transform.position = playerSpawn.transform.position;
+            PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage();
         }
     }
 }
