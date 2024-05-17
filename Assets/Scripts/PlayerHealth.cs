@@ -6,6 +6,13 @@ public class PlayerHealth : MonoBehaviour
 {
     private bool isInvincible = false;
     private GameObject lifePoints;
+    private Animator anim; // Référence à l'Animator
+
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void CanvasHealthModification()
     {
@@ -39,9 +46,10 @@ public class PlayerHealth : MonoBehaviour
         //bloquer les inputs
         gameObject.GetComponent<PlayerMovement>().enabled = false;
         //Jouer l'animation de mort (To be implemented)
-
+        anim.SetBool("isDead", true);
         //empecher les intéractions physiques avec les autre éléments
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        
     }
 
     public void TakeDamage()
