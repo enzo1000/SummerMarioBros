@@ -36,8 +36,7 @@ public class EnemyPatrol : MonoBehaviour
 
         //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
         CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
-        // on anime la course de l'ennemi
-        anim.SetBool("isRunning", true);
+        
     }
 
     // Update is called once per frame
