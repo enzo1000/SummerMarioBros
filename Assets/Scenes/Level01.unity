@@ -10048,8 +10048,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041756f9a47768c4ba48edddd6f367a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsCountText: {fileID: 891701468}
   coinsCount: 0
+  coinsCountText: {fileID: 891701468}
+  levelFinished: 0
+  levelName: Level01
 --- !u!4 &915628132
 Transform:
   m_ObjectHideFlags: 0
@@ -43278,8 +43280,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1796066476}
   m_Layer: 0
-  m_Name: Ennemies
-  m_TagString: Untagged
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

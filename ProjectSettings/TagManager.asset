@@ -8,6 +8,7 @@ TagManager:
   - PlayerSpawn
   - LifePoints
   - PauseMenu
+  - Enemy
   layers:
   - Default
   - TransparentFX
