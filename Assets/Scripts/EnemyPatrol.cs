@@ -8,6 +8,7 @@ using UnityEngine;
 // l'ennemi se déplace de point en point (aller-retour)
 public class EnemyPatrol : MonoBehaviour
 {
+    private Animator anim; // Référence à l'Animator
     public float speed;
     public Transform[] waypoints;
 
@@ -27,11 +28,15 @@ public class EnemyPatrol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //On récupère l'Animator de l'ennemi
+        anim = GetComponent<Animator>();
+
         //On initialise le point de passage de l'ennemie à son premier point de passage
         target = waypoints[0];
 
         //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
         CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
+        
     }
 
     // Update is called once per frame
@@ -51,10 +56,16 @@ public class EnemyPatrol : MonoBehaviour
 
         if(weakPoint.IsTouching(player.GetComponent<CircleCollider2D>()))
         {
+
             //Permet de normaliser la vélocité du joueur pour éviter d'avoir une inconsistance sur la hauteur de saut
             player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x, 0f);
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500.0f));
+            //On joue l'animation de mort?
+            
+            //On détruit l'ennemi apres l'animation de mort
             Destroy(transform.parent.gameObject);
+
+
         }
 
         Flip(dir.x);
