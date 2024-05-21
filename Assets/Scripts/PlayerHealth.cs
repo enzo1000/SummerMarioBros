@@ -5,16 +5,17 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     private bool isInvincible = false;
+    private GameObject playerSpawn;
     private GameObject lifePoints;
     private Animator anim; // Référence à l'Animator
 
-
     void Start()
     {
+        playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
         anim = GetComponent<Animator>();
     }
 
-    private void CanvasHealthModification()
+    private void CanvasHealthModification(string source)
     {
         lifePoints = GameObject.FindGameObjectWithTag("LifePoints");
         int currentHealth = 0;
@@ -36,27 +37,37 @@ public class PlayerHealth : MonoBehaviour
         //Si c'était son dernier point de vie, Game Over
         if (currentHealth == 1)
         {
-            GameOver();
+            GameOver(source);
         }
     }
 
-    public void GameOver()
+    public void GameOver(string source)
     {
         Debug.Log("Game Over");
+
+        DataToStore.instance.causeOfDeath.Add("CauseOfDeath", source);
+        DataToStore.instance.causeOfDeath.Add("XDeath", gameObject.transform.position.x.ToString());
+        DataToStore.instance.causeOfDeath.Add("YDeath", gameObject.transform.position.y.ToString());
+
         //bloquer les inputs
         gameObject.GetComponent<PlayerMovement>().enabled = false;
         //Jouer l'animation de mort (To be implemented)
         anim.SetBool("isDead", true);
         //empecher les intéractions physiques avec les autre éléments
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
-        
     }
 
-    public void TakeDamage()
+    public void TakeDamage(string source)
     {
         //Checking isInvincible to avoid multiple hits
-        if (!isInvincible) CanvasHealthModification();
-  
+        if (!isInvincible) CanvasHealthModification(source);
+
+        if (source == "Hole")
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.position = playerSpawn.transform.position;
+        }
+
         isInvincible = true;
         StartCoroutine(InvincibilityTime());
         StartCoroutine(InvincibilityFlash());

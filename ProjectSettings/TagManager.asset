@@ -9,6 +9,7 @@ TagManager:
   - LifePoints
   - PauseMenu
   - Enemy
+  - Coins
   layers:
   - Default
   - TransparentFX

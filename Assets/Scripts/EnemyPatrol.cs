@@ -64,8 +64,6 @@ public class EnemyPatrol : MonoBehaviour
             
             //On détruit l'ennemi apres l'animation de mort
             Destroy(transform.parent.gameObject);
-
-
         }
 
         Flip(dir.x);
@@ -84,7 +82,7 @@ public class EnemyPatrol : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage();
+            playerHealth.TakeDamage(transform.parent.name);
         }
     }
 

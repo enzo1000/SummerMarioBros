@@ -18,13 +18,19 @@ public class CameraController : MonoBehaviour
         Vector3 cameraPositionX = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         //Store the X position of the player and also add the camera offset on Y and Z axis
-        Vector3 playerPositionX = new Vector3(player.position.x, 0, 0) + posOffset;
+        Vector3 playerPosition = new Vector3(player.position.x, 0, 0) + posOffset;
+
 
         //Make the camera unable to follow the player out of the border of the world
-        if (playerPositionX.x > 11)
+        float minBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
+        float maxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
+
+        //min && max cases
+        if (playerPosition.x > minBound + (gameObject.GetComponent<Camera>().orthographicSize * 2 - 1)
+            && playerPosition.x < maxBound - (gameObject.GetComponent<Camera>().orthographicSize * 2 - 1)) 
         {
-            //Smoothly move the camera from its current position to the player's position (Only on X axis)
-            transform.position = Vector3.SmoothDamp(cameraPositionX, playerPositionX, ref velocity, timeOffset);
+            //Smoothly move the camera from its current position to the player position (Only on X axis)
+            transform.position = Vector3.SmoothDamp(cameraPositionX, playerPosition, ref velocity, timeOffset);
         }
     }
 }

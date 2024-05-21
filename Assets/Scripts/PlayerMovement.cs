@@ -79,8 +79,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
+        Vector2 ProcessedVelocity = new Vector2(Move * speed, rb.velocity.y);
+        predictPlayerPosition(rb.position, ProcessedVelocity);
 
+        //rb.velocity = new Vector2(Move * speed, rb.velocity.y); // Déplacement horizontal
+        
         if (jump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); // Saut
@@ -122,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    //Update le point de respawn du joueur pour qu'il le suive
     void UpdatePlayerSpawn()
     {
         playerSpawn.transform.position = gameObject.transform.position;
@@ -159,6 +163,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 DataToStore.instance.playerTimeInfo[levelName + "StartPause"] = DataToStore.instance.playerTimeInfo[levelName + "Timer"];
             }
+        }
+    }
+
+    private void predictPlayerPosition(Vector2 position, Vector2 ProcessedVelocity)
+    {
+        float WorldminBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
+        float WorldmaxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
+
+        if (position.x + ProcessedVelocity.x * Time.deltaTime < WorldminBound + 1
+            || position.x + ProcessedVelocity.x * Time.deltaTime > WorldmaxBound - 1)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(Move * speed, rb.velocity.y);
         }
     }
 
