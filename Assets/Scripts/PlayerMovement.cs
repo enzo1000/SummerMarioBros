@@ -24,16 +24,12 @@ public class PlayerMovement : MonoBehaviour
     private GroundedTest groundedTester; // Référence au script GroundedTest
     private bool jump = false; // Stocke l'état du saut
     private bool isMovable = true; // Stocke l'état du mouvement
-    private bool firstMovementCheck = false; //Vérifie quand le joueur bouge pour la première fois
-    private int timer; //Timer du niveau
-    private string levelName = "Level01"; //Nom du niveau
 
     void Start()
     {
         isFacingRight = true;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        InitDataToStoreField();
 
         playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn"); // Récupère le GameObject avec le tag "PlayerSpawn"
         //On passe par un parent actif pour atteindre un enfant inactif (FindGameObjectWithTag ne peut pas le faire)
@@ -58,13 +54,14 @@ public class PlayerMovement : MonoBehaviour
 
         Move = Input.GetAxis("Horizontal");
 
-        DirectionCheckTimer();
+        DataToStore.instance.UpdatePlayerMovement(Move);
 
         if (groundedTester.isGrounded) {  //Si notre personnage est au sol alors
             UpdatePlayerSpawn();          // Met à jour le point de spawn du joueur
 
             if (Input.GetKey(KeyCode.Space)) {  //Si notre joueur a la touche espace enfoncée
                 jump = true;                    // Saut
+                DataToStore.instance.jumpingData();
             }
         }
 
@@ -131,41 +128,6 @@ public class PlayerMovement : MonoBehaviour
         playerSpawn.transform.position = gameObject.transform.position;
     }
 
-    //Fonction un peu foure tout pour les timers relié à la direction du joueur / mouvements du joueur
-    void DirectionCheckTimer()
-    {
-        if (Move != 0)
-        {
-            //Temps passe sans bouger avant le premier mouvement
-            if (firstMovementCheck == false)
-            {
-                firstMovementCheck = true;
-                
-                DataToStore.instance.playerTimeInfo[levelName + "FirstDeplacementTimer"] = DataToStore.instance.playerTimeInfo[levelName + "Timer"];
-            }
-
-            //Si le joueur bouge et que le timer de pause est différent de 0, on stocke le temps que le joueur a passé sans bouger
-            //précision, on pourrait certainement ne pas avoir à réaliser ce if mais pour des raisons de clarté, on préfèrera le laisser
-            if (DataToStore.instance.playerTimeInfo[levelName + "StartPause"] != 0)
-            {
-                float timePaused = DataToStore.instance.playerTimeInfo[levelName + "Timer"] - DataToStore.instance.playerTimeInfo[levelName + "StartPause"];
-                if (timePaused > DataToStore.instance.playerTimeInfo[levelName + "MaxPause"])
-                {
-                    DataToStore.instance.playerTimeInfo[levelName + "MaxPause"] = timePaused;
-                }
-                DataToStore.instance.playerTimeInfo[levelName + "StartPause"] = 0.0f;
-            }
-        }
-        else
-        {
-            //Si le joueur s'arrête de bouger, on stocke le temps que le joueur passe sans bouger
-            if (DataToStore.instance.playerTimeInfo[levelName + "StartPause"] == 0.0f)
-            {
-                DataToStore.instance.playerTimeInfo[levelName + "StartPause"] = DataToStore.instance.playerTimeInfo[levelName + "Timer"];
-            }
-        }
-    }
-
     private void predictPlayerPosition(Vector2 position, Vector2 ProcessedVelocity)
     {
         float WorldminBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
@@ -180,16 +142,5 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(Move * speed, rb.velocity.y);
         }
-    }
-
-    //Initialise les champs importants pour le stockage des données du joueur (appele dans Start())
-    private void InitDataToStoreField()
-    {
-        //Temps auquel le joueur fait son premier deplacement
-        DataToStore.instance.playerTimeInfo.Add(levelName + "FirstDeplacementTimer", 0.0f);
-        //Temps auquel le joueur s'arrete de bouger
-        DataToStore.instance.playerTimeInfo.Add(levelName + "StartPause", 0.0f);
-        //Temps de la plus grande pause sans se deplacer du joueur
-        DataToStore.instance.playerTimeInfo.Add(levelName + "MaxPause", 0.0f);
     }
 }
