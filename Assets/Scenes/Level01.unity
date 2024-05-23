@@ -9817,7 +9817,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 327890107}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -11019,8 +11019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041756f9a47768c4ba48edddd6f367a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: 0
+  firstMovementCheck: 0
   coinsCount: 0
   coinsCountText: {fileID: 891701468}
+  isGrounded: 1
   levelFinished: 0
   levelName: Level01
   LevelCompoCol2D: {fileID: 0}
