@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         Move = Input.GetAxis("Horizontal");
 
         DataToStore.instance.UpdatePlayerMovement(Move);
+        DataToStore.instance.UpdateGroundCheckData(groundedTester.isGrounded);
 
         if (groundedTester.isGrounded) {  //Si notre personnage est au sol alors
             UpdatePlayerSpawn();          // Met à jour le point de spawn du joueur

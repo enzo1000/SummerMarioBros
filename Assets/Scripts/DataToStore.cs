@@ -15,8 +15,9 @@ public class DataToStore : MonoBehaviour
 
     public IDictionary<string, float> levelInfo;        // Stocke des informations sur le niveau
     public IDictionary<string, float> playerTimeInfo;   // Stocke diverse informations importantes concernant le joueur
-    public IDictionary<string, string> causeOfDeath;     // Stocke des informations sur la cause de la mort du joueur
+    public IDictionary<string, string> causeOfDeath;    // Stocke des informations sur la cause de la mort du joueur
 
+    public bool isGrounded = true;                      // Stocke l'état du joueur par rapport au sol
     public bool levelFinished = false;                  // Stocke l'état du niveau
     public string levelName = "Level01";                // Nom du niveau
     public CompositeCollider2D LevelCompoCol2D;
@@ -65,6 +66,16 @@ public class DataToStore : MonoBehaviour
 
         //Nombre de saut que le joueur a réalisés
         playerTimeInfo.Add(levelName + "JumpCount", 0.0f);
+
+        //Si le joueur saute, alors on stock le temps de départ (où le saut commence) pour pouvoir le soustraire quand il atterira
+        playerTimeInfo.Add(levelName + "JumpAirTimeStart", 0.0f);
+        //Idem mais mais pour le temps passe en l'air
+        playerTimeInfo.Add(levelName + "AirTimeStart", 0.0f);
+
+        //Temps passe en l'air
+        playerTimeInfo.Add(levelName + "AirTime", 0.0f);
+        //Temps passe en l'air apres un saut
+        playerTimeInfo.Add(levelName + "JumpAirTime", 0.0f);
     }
 
     private void EnemyList()
@@ -104,9 +115,16 @@ public class DataToStore : MonoBehaviour
     //Une autre fonction de set pour renseigner les informations de saut
     public void jumpingData()
     {
-        playerTimeInfo[levelName + "JumpCount"] += 1;
+        playerTimeInfo[levelName + "JumpAirTimeStart"] = playerTimeInfo[levelName + "Timer"];
     }
 
+    public void UpdateGroundCheckData(bool playerIsGrounded)
+    {
+        if (playerIsGrounded == isGrounded) return; //verification des etats de transition de isGrounded pour eviter les problemes de calcul
+        //(Le joueur met en moyenne 4 frames a quitter le sol, donc on ne veut pas enregistrer le saut 4 fois en 1 frame)
+        isGrounded = playerIsGrounded;
+        isGroundedCheckTimer();
+    }
 
     private IEnumerator StartTimer(string levelName)
     {
@@ -121,7 +139,35 @@ public class DataToStore : MonoBehaviour
             DirectionCheckTimer(clockFreq);
         }
         //Fin du niveau
-        // ....
+        // ...
+    }
+
+    private void isGroundedCheckTimer()
+    {
+        //Le joueur est en l'air
+        if (!isGrounded)
+        {
+            //Le joueur n'a pas saute et qu'il vient de quitter le sol alors :
+            if (playerTimeInfo[levelName + "JumpAirTimeStart"] == 0 && playerTimeInfo[levelName + "AirTimeStart"] == 0)
+            {
+                playerTimeInfo[levelName + "AirTimeStart"] = playerTimeInfo[levelName + "Timer"];
+            }
+        }
+        //Quand le joueur re touche le sol
+        else
+        {
+            if (playerTimeInfo[levelName + "JumpAirTimeStart"] != 0.0f)
+            {
+                playerTimeInfo[levelName + "JumpAirTime"] += playerTimeInfo[levelName + "Timer"] - playerTimeInfo[levelName + "JumpAirTimeStart"];
+                playerTimeInfo[levelName + "JumpAirTimeStart"] = 0.0f;
+                playerTimeInfo[levelName + "JumpCount"]++;
+            }
+            else if (playerTimeInfo[levelName + "AirTimeStart"] != 0.0f)
+            {
+                playerTimeInfo[levelName + "AirTime"] += playerTimeInfo[levelName + "Timer"] - playerTimeInfo[levelName + "AirTimeStart"];
+                playerTimeInfo[levelName + "AirTimeStart"] = 0.0f;
+            }
+        }
     }
 
     //Fonction un peu foure tout pour les timers relié à la direction du joueur / mouvements du joueur
@@ -133,7 +179,6 @@ public class DataToStore : MonoBehaviour
             if (firstMovementCheck == false)
             {
                 firstMovementCheck = true;
-
                 playerTimeInfo[levelName + "FirstDeplacementTimer"] = playerTimeInfo[levelName + "Timer"];
             }
 
