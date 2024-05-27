@@ -18,11 +18,11 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
-    //Variable pour stocker le point de passage vers lequel l'ennemie ce dirige
+    //Variable pour stocker le point de passage vers lequel l'ennemi ce dirige
     private Transform target;
-    //Variable pour stocker l'index du point de passage vers lequel l'ennemie ce dirige (Le même que celui de la variable target)
+    //Variable pour stocker l'index du point de passage vers lequel l'ennemi ce dirige (Le même que celui de la variable target)
     private int destPoint = 0;
-    //Variable pour stocker le weakSpot de l'ennemie et le réutiliser pour vérifier si le joueur est en collision avec
+    //Variable pour stocker le weakSpot de l'ennemi et le réutiliser pour vérifier si le joueur est en collision avec
     private BoxCollider2D weakPoint;
 
     // Start is called before the first frame update
@@ -31,22 +31,22 @@ public class EnemyPatrol : MonoBehaviour
         //On récupère l'Animator de l'ennemi
         anim = GetComponent<Animator>();
 
-        //On initialise le point de passage de l'ennemie à son premier point de passage
+        //On initialise le point de passage de l'ennemi à son premier point de passage
         target = waypoints[0];
 
-        //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
+        //On ajoute un weakSpot à l'ennemi pour pouvoir le tuer
         CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
         
     }
 
-    // Update is called once per frame
+    // Update est appelé une fois par frame
     void Update()
     {
         Vector3 dir = target.position - transform.position;
         //On normalise le vecteur (sa longueur devient 1)
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
-        //Si l'ennemie est proche du point de passage (le superpos)
+        //Si l'ennemi est proche du point de passage (le superpos)
         if (Vector3.Distance(transform.position, target.position) < 0.3f)
         {
             //On parcours notre liste de waypoints modulo la taille de la liste pour éviter les débordements
