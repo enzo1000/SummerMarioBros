@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
 
         //bloquer les inputs
         gameObject.GetComponent<PlayerMovement>().enabled = false;
-        //Jouer l'animation de mort (To be implemented)
+        //Jouer l'animation de mort
         anim.SetBool("isDead", true);
         //empecher les intéractions physiques avec les autre éléments
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
@@ -59,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(string source)
     {
-        //Checking isInvincible to avoid multiple hits
+        // Check si le joueur est invincible pour éviter les multiples hits
         if (!isInvincible) CanvasHealthModification(source);
 
         if (source == "Hole")
