@@ -42,21 +42,23 @@ public class EndOfLevel : MonoBehaviour
 
         var uniqueKeys = allKeys.Distinct().ToList();
 
-        var values = new Dictionary<string, string>(); //faut changer ici en float pour pas tout detruire apres
+        var values = new Dictionary<string, string>(); 
 
         foreach (var key in uniqueKeys)
         {
             if (levelInfo.ContainsKey(key))
             {
-                values[key] = levelInfo[key].ToString(); //et donc ici aussi
+                //remplacer , par . pour pas tout casser
+
+                values[key] = levelInfo[key].ToString().Replace(",", ".");
             }
             else if (playerTimeInfo.ContainsKey(key))
             {
-                values[key] = playerTimeInfo[key].ToString(); //et ici aussi
+                values[key] = playerTimeInfo[key].ToString().Replace(",", "."); 
             }
             else if (causeOfDeath.ContainsKey(key))
             {
-                values[key] = causeOfDeath[key]; //ici on a une string et ca fait chier
+                values[key] = causeOfDeath[key]; 
             }
             else
             {
