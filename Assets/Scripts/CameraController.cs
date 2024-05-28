@@ -13,27 +13,27 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        //Make the camera unable to follow the player out of the border of the world
+        //Faite en sorte que la caméra ne puisse pas suivre le joueur en dehors de la bordure du monde
         minBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
         maxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
     }
 
     void Update()
     {
-        //Store the start position of the camera
+        //Enregistrer la position de départ de la caméra
         Vector3 posOffset = new Vector3(0, transform.position.y, transform.position.z);
 
-        //Store the position of the camera
+        //Enregistrer la position de la caméra
         Vector3 cameraPositionX = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-        //Store the X position of the player and also add the camera offset on Y and Z axis
+        //Enregistrer la position du joueur et ajouter l'offset de la caméra sur les axes Y et Z
         Vector3 playerPosition = new Vector3(player.position.x, 0, 0) + posOffset;
 
-        //min && max cases
+        //cas min && max
         if (playerPosition.x > minBound + (gameObject.GetComponent<Camera>().orthographicSize * 2 - 1)
             && playerPosition.x < maxBound - (gameObject.GetComponent<Camera>().orthographicSize * 2 - 1)) 
         {
-            //Smoothly move the camera from its current position to the player position (Only on X axis)
+            // Bouger la caméra de manière fluide de sa position actuelle à la position du joueur (Uniquement sur l'axe X)
             transform.position = Vector3.SmoothDamp(cameraPositionX, playerPosition, ref velocity, timeOffset);
         }
     }

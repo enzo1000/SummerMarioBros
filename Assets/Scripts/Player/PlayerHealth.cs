@@ -90,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float source)
     {
-        //Checking isInvincible to avoid multiple hits
+        // Check si le joueur est invincible pour éviter les multiples hits
         if (!isInvincible) CanvasHealthModification(source);
 
         //0 = "Hole", 1 = "Gumba"
