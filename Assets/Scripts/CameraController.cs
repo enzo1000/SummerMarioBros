@@ -8,6 +8,15 @@ public class CameraController : MonoBehaviour
     public float timeOffset;
 
     private Vector3 velocity;
+    private float minBound;
+    private float maxBound;
+
+    private void Start()
+    {
+        //Make the camera unable to follow the player out of the border of the world
+        minBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
+        maxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
+    }
 
     void Update()
     {
@@ -19,11 +28,6 @@ public class CameraController : MonoBehaviour
 
         //Store the X position of the player and also add the camera offset on Y and Z axis
         Vector3 playerPosition = new Vector3(player.position.x, 0, 0) + posOffset;
-
-
-        //Make the camera unable to follow the player out of the border of the world
-        float minBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
-        float maxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
 
         //min && max cases
         if (playerPosition.x > minBound + (gameObject.GetComponent<Camera>().orthographicSize * 2 - 1)

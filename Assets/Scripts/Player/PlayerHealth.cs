@@ -9,13 +9,25 @@ public class PlayerHealth : MonoBehaviour
     private GameObject lifePoints;
     private Animator anim; // Référence à l'Animator
 
+    public static PlayerHealth instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of PlayerHealth found!");
+            return;
+        }
+        instance = this;
+    }
+
     void Start()
     {
         playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
         anim = GetComponent<Animator>();
     }
 
-    private void CanvasHealthModification(string source)
+    private void CanvasHealthModification(float source)
     {
         lifePoints = GameObject.FindGameObjectWithTag("LifePoints");
         int currentHealth = 0;
@@ -41,28 +53,48 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void GameOver(string source)
+    //Fonction pour récupérer tous les points de vie sur le canvas
+    private void RecoverFullHealth()
     {
-        Debug.Log("Game Over");
-
-        DataToStore.instance.causeOfDeath.Add("CauseOfDeath", source);
-        DataToStore.instance.causeOfDeath.Add("XDeath", gameObject.transform.position.x.ToString());
-        DataToStore.instance.causeOfDeath.Add("YDeath", gameObject.transform.position.y.ToString());
-
-        //bloquer les inputs
-        gameObject.GetComponent<PlayerMovement>().enabled = false;
-        //Jouer l'animation de mort (To be implemented)
-        anim.SetBool("isDead", true);
-        //empecher les intéractions physiques avec les autre éléments
-        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        foreach (Transform lifePoint in lifePoints.GetComponentInChildren<Transform>())
+        {
+            lifePoint.gameObject.SetActive(true);
+        }
     }
 
-    public void TakeDamage(string source)
+    //Fonction pour gérer le Game Over : 
+    // - On stocke la cause de la mort
+    // - On désactive les inputs
+    // - On lance l'animation de mort + affichage du menu de Game Over
+    public void GameOver(float source)
+    {
+        DataToStore.instance.causeOfDeath["CauseOfDeath"] = source;
+        DataToStore.instance.causeOfDeath["XDeath"] = gameObject.transform.position.x;
+        DataToStore.instance.causeOfDeath["YDeath"] = gameObject.transform.position.y;
+
+        gameObject.GetComponent<PlayerMovement>().enabled = false;   //bloque les inputs
+        anim.SetTrigger("isDead");
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;   //Empeche les intéractions physiques avec les autre éléments
+
+        GameOverMenu.instance.OnPlayerDeath();
+    }
+
+    //Fonction pour gérer le respawn du joueur appelé dans GameOverMenu.cs
+    public void Respawn()
+    {
+        gameObject.GetComponent<PlayerMovement>().enabled = true;
+        anim.SetTrigger("Respawn");
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        RecoverFullHealth();
+    }
+
+    public void TakeDamage(float source)
     {
         //Checking isInvincible to avoid multiple hits
         if (!isInvincible) CanvasHealthModification(source);
 
-        if (source == "Hole")
+        //0 = "Hole", 1 = "Gumba"
+        if (source == 0.0f)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = playerSpawn.transform.position;

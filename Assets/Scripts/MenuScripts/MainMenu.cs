@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private string levelToLoad;
+    private string levelToLoad = "None";
 
     [SerializeField]
-    private GameObject settingWindow;
+    private GameObject settingsWindow;
 
     public void StartGame()
     {
@@ -18,12 +18,12 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        settingWindow.SetActive(true);
+        settingsWindow.SetActive(true);
     }
 
     public void CloseSettings()
     {
-        settingWindow.SetActive(false);
+        settingsWindow.SetActive(false);
     }
 
     public void QuitGame()

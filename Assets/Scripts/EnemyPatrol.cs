@@ -34,6 +34,8 @@ public class EnemyPatrol : MonoBehaviour
         //On initialise le point de passage de l'ennemie à son premier point de passage
         target = waypoints[0];
 
+        player = GameObject.FindGameObjectWithTag("Player");
+
         //On ajoute un weakSpot à l'ennemie pour pouvoir le tuer
         CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
         
@@ -54,9 +56,13 @@ public class EnemyPatrol : MonoBehaviour
             target = waypoints[destPoint];
         }
 
+        if (player == null)
+        {
+            return;
+        }
+
         if(weakPoint.IsTouching(player.GetComponent<CircleCollider2D>()))
         {
-
             //Permet de normaliser la vélocité du joueur pour éviter d'avoir une inconsistance sur la hauteur de saut
             player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x, 0f);
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500.0f));
@@ -82,7 +88,7 @@ public class EnemyPatrol : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.transform.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage(transform.parent.name);
+            playerHealth.TakeDamage(1.0f);
         }
     }
 

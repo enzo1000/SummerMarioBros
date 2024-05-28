@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - PlayerSpawn
   - LifePoints
   - PauseMenu
   - Enemy
   - Coins
+  - LastPositionRegistered
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

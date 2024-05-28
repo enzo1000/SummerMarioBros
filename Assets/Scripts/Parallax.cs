@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ParallaxEffect : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class ParallaxEffect : MonoBehaviour
 
     void Start()
     {
-        cam = Camera.main;
+        //cam = Camera.main;
+        cam = FindObjectOfType<Camera>();
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         if (spriteRenderers.Length > 0)
         {

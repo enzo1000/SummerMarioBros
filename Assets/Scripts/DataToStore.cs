@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DataToStore : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class DataToStore : MonoBehaviour
 
     public IDictionary<string, float> levelInfo;        // Stocke des informations sur le niveau
     public IDictionary<string, float> playerTimeInfo;   // Stocke diverse informations importantes concernant le joueur
-    public IDictionary<string, string> causeOfDeath;    // Stocke des informations sur la cause de la mort du joueur
+    public IDictionary<string, float> causeOfDeath;    // Stocke des informations sur la cause de la mort du joueur
 
     public bool isGrounded = true;                      // Stocke l'état du joueur par rapport au sol
     public bool levelFinished = false;                  // Stocke l'état du niveau
@@ -32,18 +33,17 @@ public class DataToStore : MonoBehaviour
         }
         instance = this;
 
+        levelName = SceneManager.GetActiveScene().name;
         playerTimeInfo = new Dictionary<string, float>();
         levelInfo = new Dictionary<string, float>();
-        causeOfDeath = new Dictionary<string, string>();
+        causeOfDeath = new Dictionary<string, float>();
 
         InitDataToStoreField();
         StartCoroutine(StartTimer(levelName));
         EnemyList();
-        CoinsList();
 
-        //Recupere le CompositeCollider2D du sol du niveau
+        CoinsList();
         LevelCompoCol2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<CompositeCollider2D>();
-        //Debug.Log(LevelCompoCol2D.bounds.min.x + " | " + LevelCompoCol2D.bounds.max.x);
     }
 
     //Initialise les champs importants pour le stockage des données du joueur)
@@ -76,6 +76,11 @@ public class DataToStore : MonoBehaviour
         playerTimeInfo.Add(levelName + "AirTime", 0.0f);
         //Temps passe en l'air apres un saut
         playerTimeInfo.Add(levelName + "JumpAirTime", 0.0f);
+
+        //Toutes les informations relatives à la mort du joueur
+        causeOfDeath.Add("CauseOfDeath", 0.0f);
+        causeOfDeath.Add("XDeath", 0.0f);
+        causeOfDeath.Add("YDeath", 0.0f);
     }
 
     private void EnemyList()
@@ -103,6 +108,12 @@ public class DataToStore : MonoBehaviour
     public void AddCoins(int count)
     {
         coinsCount += count;
+        coinsCountText.text = coinsCount.ToString();
+    }
+
+    public void RemoveCoins(int count)
+    {
+        coinsCount -= count;
         coinsCountText.text = coinsCount.ToString();
     }
 

@@ -10,6 +10,7 @@ public class BonusClass : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             DataToStore.instance.AddCoins(1);
+            CurrentSceneManager.instance.coinsPickedUpCount++;
             Destroy(gameObject);
         }
     }
