@@ -56,10 +56,25 @@ public class PlayerHealth : MonoBehaviour
     //Fonction pour récupérer tous les points de vie sur le canvas
     private void RecoverFullHealth()
     {
+<<<<<<< HEAD:Assets/Scripts/Player/PlayerHealth.cs
         foreach (Transform lifePoint in lifePoints.GetComponentInChildren<Transform>())
         {
             lifePoint.gameObject.SetActive(true);
         }
+=======
+        Debug.Log("Game Over");
+
+        DataToStore.instance.causeOfDeath.Add("CauseOfDeath", source);
+        DataToStore.instance.causeOfDeath.Add("XDeath", gameObject.transform.position.x.ToString());
+        DataToStore.instance.causeOfDeath.Add("YDeath", gameObject.transform.position.y.ToString());
+
+        //bloquer les inputs
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
+        //Jouer l'animation de mort
+        anim.SetBool("isDead", true);
+        //empecher les intéractions physiques avec les autre éléments
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+>>>>>>> aed09f11cc138e760ec2a20f3573d8ab019e99ae:Assets/Scripts/PlayerHealth.cs
     }
 
     //Fonction pour gérer le Game Over : 
@@ -90,7 +105,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float source)
     {
-        //Checking isInvincible to avoid multiple hits
+        // Check si le joueur est invincible pour éviter les multiples hits
         if (!isInvincible) CanvasHealthModification(source);
 
         //0 = "Hole", 1 = "Gumba"
