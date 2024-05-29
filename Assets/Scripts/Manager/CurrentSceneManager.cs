@@ -5,7 +5,6 @@ using UnityEngine;
 public class CurrentSceneManager : MonoBehaviour
 {
     public bool isPlayerPresentByDefault = false;
-    public int coinsPickedUpCount = 0;
 
     public static CurrentSceneManager instance;
 

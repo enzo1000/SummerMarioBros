@@ -10,6 +10,7 @@ public class PlayerMisc : MonoBehaviour
     private GameObject playerSpawn;
     private GameObject LastPositionRegistered;         // Référence au point de spawn du joueur
     private GameObject player;                         // Référence au joueur
+    private GroundedTest groundTest;
 
     //Appelé en premier dans l'éxécution du prgramme
     private void Awake()
@@ -17,6 +18,8 @@ public class PlayerMisc : MonoBehaviour
         playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
         SceneManager.sceneLoaded += OnSceneLoad;
         LastPositionRegistered = GameObject.FindGameObjectWithTag("LastPositionRegistered");
+
+        groundTest = GetComponentInChildren<GroundedTest>();
     }
     
     //Appelé lorsqu'une scène est chargée
@@ -34,12 +37,16 @@ public class PlayerMisc : MonoBehaviour
 
     void UpdatePlayerSpawn()
     {
-        LastPositionRegistered.transform.position = new Vector3(Mathf.Round(gameObject.transform.position.x), Mathf.Round(gameObject.transform.position.y), 0);
+        //LastPositionRegistered.transform.position = new Vector3(Mathf.Round(gameObject.transform.position.x), Mathf.Round(gameObject.transform.position.y), 0);
+        LastPositionRegistered.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
     }
 
     //Appelé à chaque frame
     private void Update()
     {
-        UpdatePlayerSpawn();
+        if (groundTest.isGrounded)
+        {
+            UpdatePlayerSpawn();
+        }
     }
 }

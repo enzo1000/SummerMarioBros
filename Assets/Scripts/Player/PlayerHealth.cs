@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     private bool isInvincible = false;
-    private GameObject playerSpawn;
     private GameObject lifePoints;
     private Animator anim; // Référence à l'Animator
 
@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
         anim = GetComponent<Animator>();
     }
 
@@ -46,10 +45,12 @@ public class PlayerHealth : MonoBehaviour
         //On désactive le dernier pdv
         transformsTab[currentHealth - 1].gameObject.SetActive(false);
 
+        DataToStore.instance.SetCauseOfDeath(currentHealth - 1, source, gameObject.transform.position.x, gameObject.transform.position.y);
+
         //Si c'était son dernier point de vie, Game Over
         if (currentHealth == 1)
         {
-            GameOver(source);
+            GameOver();
         }
     }
 
@@ -66,11 +67,11 @@ public class PlayerHealth : MonoBehaviour
     // - On stocke la cause de la mort
     // - On désactive les inputs
     // - On lance l'animation de mort + affichage du menu de Game Over
-    public void GameOver(float source)
+    public void GameOver()
     {
-        DataToStore.instance.causeOfDeath["CauseOfDeath"] = source;
-        DataToStore.instance.causeOfDeath["XDeath"] = gameObject.transform.position.x;
-        DataToStore.instance.causeOfDeath["YDeath"] = gameObject.transform.position.y;
+        DataToStore.instance.ProcessEndOfLevelData();   //On calcul nos taux de bonus / kill
+        EndOfLevel.instance.FindDicoDatas();            //On envoie nos données à EndOfLevel.cs
+        DataToStore.instance.ResetData(SceneManager.GetActiveScene().name);    //On reset nos dictionnaires pour recommencer
 
         gameObject.GetComponent<PlayerMovement>().enabled = false;   //bloque les inputs
         anim.SetTrigger("isDead");
@@ -90,15 +91,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float source)
     {
+        //Pour le source : 0 = "Hole", 1 = "Gumba"
         // Check si le joueur est invincible pour éviter les multiples hits
         if (!isInvincible) CanvasHealthModification(source);
-
-        //0 = "Hole", 1 = "Gumba"
-        if (source == 0.0f)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.transform.position = playerSpawn.transform.position;
-        }
 
         isInvincible = true;
         StartCoroutine(InvincibilityTime());

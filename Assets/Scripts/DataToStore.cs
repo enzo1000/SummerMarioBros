@@ -11,9 +11,9 @@ public class DataToStore : MonoBehaviour
     public float playerMovement;            // Stocke la valeur de l'axe horizontal du joueur
     public bool firstMovementCheck = false; // Stocke l'état du premier mouvement du joueur
 
-    public int coinsCount;      //Compteur de pièces
     public Text coinsCountText; // Texte affichant le nombre de pièces
 
+    public IDictionary<string, string> levelNameDic;    // Stocke le nom du niveau
     public IDictionary<string, float> levelInfo;        // Stocke des informations sur le niveau
     public IDictionary<string, float> playerTimeInfo;   // Stocke diverse informations importantes concernant le joueur
     public IDictionary<string, float> causeOfDeath;    // Stocke des informations sur la cause de la mort du joueur
@@ -34,53 +34,101 @@ public class DataToStore : MonoBehaviour
         instance = this;
 
         levelName = SceneManager.GetActiveScene().name;
+        levelNameDic = new Dictionary<string, string>();
         playerTimeInfo = new Dictionary<string, float>();
         levelInfo = new Dictionary<string, float>();
         causeOfDeath = new Dictionary<string, float>();
 
         InitDataToStoreField();
         StartCoroutine(StartTimer(levelName));
-        EnemyList();
 
-        CoinsList();
         LevelCompoCol2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<CompositeCollider2D>();
     }
 
     //Initialise les champs importants pour le stockage des données du joueur)
     private void InitDataToStoreField()
     {
+        //Nom du niveau
+        levelNameDic.Add("levelName", levelName);
+
+        //Temps que le joueur a passé dans tel niveau
+        playerTimeInfo.Add("Timer", 0.0f);
+
         //Temps auquel le joueur fait son premier deplacement
-        playerTimeInfo.Add(levelName + "FirstDeplacementTimer", 0.0f);
+        playerTimeInfo.Add("FirstDeplacementTimer", 0.0f);
 
         //Temps auquel le joueur s'arrete de bouger (utilise pour calculer la plus grande pause)
-        playerTimeInfo.Add(levelName + "StartPause", 0.0f);
+        playerTimeInfo.Add("StartPause", 0.0f);
         //Temps de la plus grande pause sans se deplacer du joueur
-        playerTimeInfo.Add(levelName + "MaxPause", 0.0f);
+        playerTimeInfo.Add("MaxPause", 0.0f);
 
         //Temps que le joueur a passe sans bouger
-        playerTimeInfo.Add(levelName + "PauseTime", 0.0f);
+        playerTimeInfo.Add("PauseTime", 0.0f);
         //Temps que le joueur a passe a aller a gauche
-        playerTimeInfo.Add(levelName + "LeftDeplacementTimer", 0.0f);
+        playerTimeInfo.Add("LeftDeplacementTimer", 0.0f);
         //Temps que le joueur a passe a aller a droite
-        playerTimeInfo.Add(levelName + "RightDeplacementTimer", 0.0f);
+        playerTimeInfo.Add("RightDeplacementTimer", 0.0f);
 
         //Nombre de saut que le joueur a réalisés
-        playerTimeInfo.Add(levelName + "JumpCount", 0.0f);
+        playerTimeInfo.Add("JumpCount", 0.0f);
 
         //Si le joueur saute, alors on stock le temps de départ (où le saut commence) pour pouvoir le soustraire quand il atterira
-        playerTimeInfo.Add(levelName + "JumpAirTimeStart", 0.0f);
+        playerTimeInfo.Add("JumpAirTimeStart", 0.0f);
         //Idem mais mais pour le temps passe en l'air
-        playerTimeInfo.Add(levelName + "AirTimeStart", 0.0f);
+        playerTimeInfo.Add("AirTimeStart", 0.0f);
 
         //Temps passe en l'air
-        playerTimeInfo.Add(levelName + "AirTime", 0.0f);
+        playerTimeInfo.Add("AirTime", 0.0f);
         //Temps passe en l'air apres un saut
-        playerTimeInfo.Add(levelName + "JumpAirTime", 0.0f);
+        playerTimeInfo.Add("JumpAirTime", 0.0f);
 
         //Toutes les informations relatives à la mort du joueur
-        causeOfDeath.Add("CauseOfDeath", 0.0f);
-        causeOfDeath.Add("XDeath", 0.0f);
-        causeOfDeath.Add("YDeath", 0.0f);
+        for (int i = 0; i < 3; i++) {
+            causeOfDeath.Add("CauseOfDeath" + i, -1.0f);
+            causeOfDeath.Add("XDeath" + i, -1.0f);
+            causeOfDeath.Add("YDeath" + i, -1.0f);
+        }
+
+        EnemyList();
+        CoinsList();
+    }
+
+    //Fonction pour venir calculer les dernières informations à transmettre au csv avant la fin du niveau
+    // Cette fonction est appelée dans PlayerHealth.GameOver() et dans EndOfLevel.OnTriggerEnter2D()
+    public void ProcessEndOfLevelData()
+    {
+        //Calcul du ratio de pieces collectées
+        float coinsRatio = levelInfo["CoinsCollected"] / levelInfo["Coins"];
+        levelInfo["CoinsCollected"] = coinsRatio;
+
+        //Calcul du ratio d'ennemis tués
+        float enemiesRatio = levelInfo["EnemiesKilled"] / levelInfo["Enemies"];
+        levelInfo["EnemiesKilled"] = enemiesRatio;
+    }
+
+
+    public void ResetData(string newSceneName)
+    {
+        //Supprimer les dictionnaires de données
+        levelNameDic.Clear();
+        playerTimeInfo.Clear();
+        levelInfo.Clear();
+        causeOfDeath.Clear();
+
+        //Changement de niveau
+        StopAllCoroutines();    //Je n'ai pas reussi a faire fonctionner le StopCoroutine simple donc a ameliorer dans le futur
+        levelName = newSceneName;
+        InitDataToStoreField();
+        StartCoroutine(StartTimer(levelName));
+    }
+
+    public void SetCauseOfDeath(int PVLeft, float cause, float x, float y)
+    {
+        //PVLeft sert à tenir compte de la vie restante du joueur après s'être pris le coup.
+        // cette valeur va de 2 à 0 avec 0 étant la raison de la mort du joueur
+        causeOfDeath["CauseOfDeath" + PVLeft] = cause;
+        causeOfDeath["XDeath" + PVLeft] = x;
+        causeOfDeath["YDeath" + PVLeft] = y;
     }
 
     private void EnemyList()
@@ -91,7 +139,8 @@ public class DataToStore : MonoBehaviour
         {
             numberOfEnemies++;
         }
-        levelInfo.Add(levelName + "Enemies", numberOfEnemies);
+        levelInfo.Add("Enemies", numberOfEnemies);
+        levelInfo.Add("EnemiesKilled", 0.0f);
     }
 
     private void CoinsList()
@@ -102,19 +151,25 @@ public class DataToStore : MonoBehaviour
         {
             numberOfCoins++;
         }
-        levelInfo.Add(levelName + "Coins", numberOfCoins);
+        levelInfo.Add("Coins", numberOfCoins);
+        levelInfo.Add("CoinsCollected", 0.0f);
+    }
+
+    public void AddEnemyKilledCount()
+    {
+        levelInfo["EnemiesKilled"] += 1.0f;
     }
 
     public void AddCoins(int count)
     {
-        coinsCount += count;
-        coinsCountText.text = coinsCount.ToString();
+        levelInfo["CoinsCollected"] += (float)count;
+        coinsCountText.text = levelInfo["CoinsCollected"].ToString();
     }
 
     public void RemoveCoins(int count)
     {
-        coinsCount -= count;
-        coinsCountText.text = coinsCount.ToString();
+        levelInfo["CoinsCollected"] -= (float)count;
+        coinsCountText.text = levelInfo["CoinsCollected"].ToString();
     }
 
     //Une fonction set afin de formaliser la modification de la valeur de playerMovement dans DataToStore
@@ -126,7 +181,7 @@ public class DataToStore : MonoBehaviour
     //Une autre fonction de set pour renseigner les informations de saut
     public void jumpingData()
     {
-        playerTimeInfo[levelName + "JumpAirTimeStart"] = playerTimeInfo[levelName + "Timer"];
+        playerTimeInfo["JumpAirTimeStart"] = playerTimeInfo["Timer"];
     }
 
     public void UpdateGroundCheckData(bool playerIsGrounded)
@@ -139,18 +194,14 @@ public class DataToStore : MonoBehaviour
 
     private IEnumerator StartTimer(string levelName)
     {
-        string timerName = levelName + "Timer";
         float clockFreq = 0.25f;
-        playerTimeInfo.Add(timerName, 0.0f);
         while (!levelFinished)
         {
             yield return new WaitForSeconds(clockFreq);
-            playerTimeInfo[timerName] += clockFreq;
+            playerTimeInfo["Timer"] += clockFreq;
 
             DirectionCheckTimer(clockFreq);
         }
-        //Fin du niveau
-        // ...
     }
 
     private void isGroundedCheckTimer()
@@ -159,24 +210,24 @@ public class DataToStore : MonoBehaviour
         if (!isGrounded)
         {
             //Le joueur n'a pas saute et qu'il vient de quitter le sol alors :
-            if (playerTimeInfo[levelName + "JumpAirTimeStart"] == 0 && playerTimeInfo[levelName + "AirTimeStart"] == 0)
+            if (playerTimeInfo["JumpAirTimeStart"] == 0 && playerTimeInfo["AirTimeStart"] == 0)
             {
-                playerTimeInfo[levelName + "AirTimeStart"] = playerTimeInfo[levelName + "Timer"];
+                playerTimeInfo["AirTimeStart"] = playerTimeInfo["Timer"];
             }
         }
         //Quand le joueur re touche le sol
         else
         {
-            if (playerTimeInfo[levelName + "JumpAirTimeStart"] != 0.0f)
+            if (playerTimeInfo["JumpAirTimeStart"] != 0.0f)
             {
-                playerTimeInfo[levelName + "JumpAirTime"] += playerTimeInfo[levelName + "Timer"] - playerTimeInfo[levelName + "JumpAirTimeStart"];
-                playerTimeInfo[levelName + "JumpAirTimeStart"] = 0.0f;
-                playerTimeInfo[levelName + "JumpCount"]++;
+                playerTimeInfo["JumpAirTime"] += playerTimeInfo["Timer"] - playerTimeInfo["JumpAirTimeStart"];
+                playerTimeInfo["JumpAirTimeStart"] = 0.0f;
+                playerTimeInfo["JumpCount"]++;
             }
-            else if (playerTimeInfo[levelName + "AirTimeStart"] != 0.0f)
+            else if (playerTimeInfo["AirTimeStart"] != 0.0f)
             {
-                playerTimeInfo[levelName + "AirTime"] += playerTimeInfo[levelName + "Timer"] - playerTimeInfo[levelName + "AirTimeStart"];
-                playerTimeInfo[levelName + "AirTimeStart"] = 0.0f;
+                playerTimeInfo["AirTime"] += playerTimeInfo["Timer"] - playerTimeInfo["AirTimeStart"];
+                playerTimeInfo["AirTimeStart"] = 0.0f;
             }
         }
     }
@@ -190,39 +241,39 @@ public class DataToStore : MonoBehaviour
             if (firstMovementCheck == false)
             {
                 firstMovementCheck = true;
-                playerTimeInfo[levelName + "FirstDeplacementTimer"] = playerTimeInfo[levelName + "Timer"];
+                playerTimeInfo["FirstDeplacementTimer"] = playerTimeInfo["Timer"];
             }
 
             //Si le joueur va à droite / gauche
             if (playerMovement < 0)
             {
-                playerTimeInfo[levelName + "LeftDeplacementTimer"] += clockFreq;
+                playerTimeInfo["LeftDeplacementTimer"] += clockFreq;
             } else
             {
-                playerTimeInfo[levelName + "RightDeplacementTimer"] += clockFreq;
+                playerTimeInfo["RightDeplacementTimer"] += clockFreq;
             }
 
             //Si le joueur bouge et que le timer de pause est différent de 0, on stocke le temps que le joueur a passé sans bouger
             //précision, on pourrait certainement ne pas avoir à réaliser ce if mais pour des raisons de clarté, on préfèrera le laisser
-            if (playerTimeInfo[levelName + "StartPause"] != 0)
+            if (playerTimeInfo["StartPause"] != 0)
             {
-                float timePaused = playerTimeInfo[levelName + "Timer"] - playerTimeInfo[levelName + "StartPause"];
-                if (timePaused > playerTimeInfo[levelName + "MaxPause"])
+                float timePaused = playerTimeInfo["Timer"] - playerTimeInfo["StartPause"];
+                if (timePaused > playerTimeInfo["MaxPause"])
                 {
-                    playerTimeInfo[levelName + "MaxPause"] = timePaused;
+                    playerTimeInfo["MaxPause"] = timePaused;
                 }
-                playerTimeInfo[levelName + "StartPause"] = 0.0f;
+                playerTimeInfo["StartPause"] = 0.0f;
             }
         }
         else
         {
             //Si le joueur s'arrête de bouger, on stocke le temps où le joueur commence à arreter de bouger
-            if (playerTimeInfo[levelName + "StartPause"] == 0.0f)
+            if (playerTimeInfo["StartPause"] == 0.0f)
             {
-                playerTimeInfo[levelName + "StartPause"] = playerTimeInfo[levelName + "Timer"];
+                playerTimeInfo["StartPause"] = playerTimeInfo["Timer"];
             }
             //On incremente aussi le temps que le joueur passe sans bouger
-            playerTimeInfo[levelName + "PauseTime"] += clockFreq;
+            playerTimeInfo["PauseTime"] += clockFreq;
         }
     }
 }

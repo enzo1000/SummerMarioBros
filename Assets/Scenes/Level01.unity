@@ -11366,7 +11366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: 0
   firstMovementCheck: 0
-  coinsCount: 0
   coinsCountText: {fileID: 891701468}
   isGrounded: 1
   levelFinished: 0

@@ -38,7 +38,6 @@ public class EnemyPatrol : MonoBehaviour
 
         //On ajoute un weakSpot à l'ennemi pour pouvoir le tuer
         CreateBoxCollider2D(new Vector2(0f, 0.1f), new Vector2(0.1f, 0.02f));
-        
     }
 
     void Update()
@@ -47,7 +46,7 @@ public class EnemyPatrol : MonoBehaviour
         //On normalise le vecteur (sa longueur devient 1)
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
-        //Si l'ennemi est proche du point de passage (le superpos)
+        //Si l'ennemi est proche du point de passage (le superpose)
         if (Vector3.Distance(transform.position, target.position) < 0.3f)
         {
             //On parcours notre liste de waypoints modulo la taille de la liste pour éviter les débordements
@@ -65,8 +64,10 @@ public class EnemyPatrol : MonoBehaviour
             //Permet de normaliser la vélocité du joueur pour éviter d'avoir une inconsistance sur la hauteur de saut
             player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x, 0f);
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500.0f));
-            //On joue l'animation de mort?
-            
+
+            //On stocke l'information d'élimination du monstre par le joueur
+            DataToStore.instance.AddEnemyKilledCount();
+
             //On détruit l'ennemi apres l'animation de mort
             Destroy(transform.parent.gameObject);
         }

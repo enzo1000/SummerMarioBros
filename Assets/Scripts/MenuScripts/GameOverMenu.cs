@@ -30,7 +30,6 @@ public class GameOverMenu : MonoBehaviour
 
     public void RetryButton()
     {
-        DataToStore.instance.RemoveCoins(CurrentSceneManager.instance.coinsPickedUpCount);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         PlayerHealth.instance.Respawn();
         gameOverUI.SetActive(false);
