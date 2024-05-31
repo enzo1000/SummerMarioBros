@@ -1,0 +1,22 @@
+{
+    "managedList": [
+        {
+            "packageName": "Google.Apis",
+            "fileNames": [
+                "Google.Apis"
+            ]
+        },
+        {
+            "packageName": "Google.Apis.Core",
+            "fileNames": [
+                "Google.Apis.Core"
+            ]
+        },
+        {
+            "packageName": "Newtonsoft.Json",
+            "fileNames": [
+                "Newtonsoft.Json"
+            ]
+        }
+    ]
+}

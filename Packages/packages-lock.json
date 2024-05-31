@@ -219,6 +219,31 @@
       },
       "url": "https://packages.unity.com"
     },
+    "org.kumas.nuget-importer": {
+      "version": "4.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "org.nuget.google.apis": {
+      "version": "file:Google.Apis",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "org.nuget.google.apis.core": {
+      "version": "file:Google.Apis.Core",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "org.nuget.newtonsoft.json": {
+      "version": "file:Newtonsoft.Json",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
