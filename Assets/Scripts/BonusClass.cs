@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BonusClass : MonoBehaviour
 {
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        // Par exemple, vérifiez le nom du collider
+        if (collision.gameObject.name == "Jumphitbox")
         {
             DataToStore.instance.AddCoins(1);
             Destroy(gameObject);
