@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packages xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <package ID="Google.Apis.Auth" Version="1.62.0" TargetFramework="netstandard2.0" AllowedVersions="[1.62.0]" />
   <package ID="Google.Apis" Version="1.68.0" TargetFramework="netstandard2.0" AllowedVersions="[1.68.0]" />
+  <package ID="Google.Apis.Drive.v3" Version="1.61.0.3155" TargetFramework="netstandard2.0" AllowedVersions="[1.61.0.3155]" />
 </packages>

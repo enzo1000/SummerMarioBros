@@ -2,6 +2,8 @@ using Google.Apis;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
+using System;
+using System.Diagnostics;
 
 namespace Gooogle_Drive_OAuth2_Example
 {
@@ -28,7 +30,7 @@ namespace Gooogle_Drive_OAuth2_Example
             UserCredential credential = Login(googleClientId, googleClientSecret);
             using (var driveService = new DriveService(new BaseClientService.Initializer() { HttpClientInitializer = credential }))
             {
-
+                Console.WriteLine("sekse");
             }
         }
     }

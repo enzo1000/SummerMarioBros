@@ -232,8 +232,20 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "org.nuget.google.apis.auth": {
+      "version": "file:Google.Apis.Auth",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "org.nuget.google.apis.core": {
       "version": "file:Google.Apis.Core",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "org.nuget.google.apis.drive.v3": {
+      "version": "file:Google.Apis.Drive.v3",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
