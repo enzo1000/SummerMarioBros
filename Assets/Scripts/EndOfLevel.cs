@@ -112,5 +112,6 @@ public class EndOfLevel : MonoBehaviour
         }
 
         Debug.Log($"Data exported to {filePath}"); // Juste du debug on peut le retirer
+        GoogleDriveAPI.instance.SendData(); // Envoie des données sur Google Drive
     }
 }
