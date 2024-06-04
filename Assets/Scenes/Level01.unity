@@ -440,6 +440,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (17)
@@ -7405,6 +7409,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -7462,6 +7470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (29)
@@ -7678,6 +7690,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (1)
@@ -7801,6 +7817,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (27)
@@ -8913,6 +8933,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -8975,6 +8999,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (2)
@@ -8992,6 +9020,11 @@ GameObject:
 --- !u!4 &493196236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5636153119667151111, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+  m_PrefabInstance: {fileID: 6108470913490722808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &493196239 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 513239609042355342, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
   m_PrefabInstance: {fileID: 6108470913490722808}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &501366669
@@ -9205,6 +9238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (25)
@@ -9262,6 +9299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (8)
@@ -11027,6 +11068,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (28)
@@ -11326,6 +11371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (18)
@@ -11447,6 +11496,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -11653,6 +11706,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (9)
@@ -12209,6 +12266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (19)
@@ -13017,6 +13078,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -13543,6 +13608,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (2)
@@ -13744,6 +13813,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -13801,6 +13874,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (7)
@@ -22690,6 +22767,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -22932,6 +23013,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (6)
@@ -23305,6 +23390,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (5)
@@ -23362,6 +23451,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -23996,6 +24089,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -25211,6 +25308,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0 (26)
@@ -25562,6 +25663,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -25765,6 +25870,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317979675696856971, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
+      propertyPath: specificPlayerCollider
+      value: 
+      objectReference: {fileID: 493196239}
     - target: {fileID: 7879654431375245096, guid: 25b2d7a04c0094a40bf1b9a87791882f, type: 3}
       propertyPath: m_Name
       value: CoinOverworld_0
@@ -25839,6 +25948,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 513239609042355342, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1695644791517518505, guid: 7a964f880d9c4e74fa149e510da1fdb4, type: 3}
       propertyPath: m_Name
       value: Gum Bot
