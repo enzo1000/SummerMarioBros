@@ -106,4 +106,11 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(Move * speed, rb.velocity.y);
         }
     }
+
+    public void StopPlayer()
+    {
+        rb.velocity = new Vector2(0, 0); // On arrête le joueur
+        anim.SetBool("isRunning", false); // On arrête l'animation de course
+    }
+
 }

@@ -11,7 +11,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Globalization;
+using System.Collections;
 
 public class GoogleDriveAPI : MonoBehaviour
 {
@@ -30,13 +32,15 @@ public class GoogleDriveAPI : MonoBehaviour
     string UploadFileName;
     string keyFilePath;
 
+    byte[] keyFile;
+
 #if UNITY_EDITOR
     public static bool IsUnityEditor = true;
 #else
     public static bool IsUnityEditor = false;
 #endif
 
-    public async void SendData()
+    private void Start()
     {
         if (IsUnityEditor)
         {
@@ -45,14 +49,19 @@ public class GoogleDriveAPI : MonoBehaviour
         }
         else
         {
-            UploadFileName = ".\\SummerMario_Data\\GameData.csv";
-            keyFilePath = ".\\SummerMario_Data\\StreamingAssets\\key.p12";
-        }
+            //StartCoroutine(GetRequestCsv(Application.streamingAssetsPath + "/GameData.csv"));
+            StartCoroutine(GetRequestKey(Application.streamingAssetsPath + "/key.p12"));
 
+            UploadFileName = UnityWebRequest.Get(Application.streamingAssetsPath + "/GameData.csv").url;
+        }
+    }
+
+    public async void SendData()
+    {
         try
         {
             string serviceAccountEmail = "utilisateur01@unitysummermario.iam.gserviceaccount.com";
-            var certificate = new X509Certificate2(keyFilePath, "notasecret", X509KeyStorageFlags.Exportable);
+            var certificate = new X509Certificate2(keyFile, "notasecret", X509KeyStorageFlags.Exportable);
 
             ServiceAccountCredential credential = new ServiceAccountCredential(
                     new ServiceAccountCredential.Initializer(serviceAccountEmail)
@@ -75,6 +84,8 @@ public class GoogleDriveAPI : MonoBehaviour
                 Name = fileName,
                 Parents = new List<string>() { "13AYz0s3EncObzSWeIXo5G0RkJqkS2E8F" },
             };
+
+            StartCoroutine(GetRequestCsv(Application.streamingAssetsPath + "/GameData.csv"));
 
             //Envoie du fichier
             await using (var fsSource = new FileStream(UploadFileName, FileMode.Open, FileAccess.Read))
@@ -102,6 +113,57 @@ public class GoogleDriveAPI : MonoBehaviour
             else
             {
                 throw;
+            }
+        }
+    }
+
+    IEnumerator GetRequestKey(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    UnityEngine.Debug.LogError(pages[page] + ": Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    UnityEngine.Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    //UnityEngine.Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    keyFile = webRequest.downloadHandler.data;
+                    break;
+            }
+        }
+    }    
+    
+    IEnumerator GetRequestCsv(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    UnityEngine.Debug.LogError(pages[page] + ": Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    UnityEngine.Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    UnityEngine.Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    break;
             }
         }
     }

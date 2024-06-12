@@ -599,7 +599,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Standalone: ZIP_AVAILABLE
-    WebGL: ZIP_AVAILABLE;NUGET_PACKAGE_READY
+    WebGL: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
