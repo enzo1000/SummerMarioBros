@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,8 @@ public class EndOfLevel : MonoBehaviour
     public IDictionary<string, float> levelInfo;
     public IDictionary<string, float> playerTimeInfo;
     public IDictionary<string, float> causeOfDeath;
+
+    public Animator remerciementsAnimation;
 
     private bool dataExported = false; // Flag pour s'assurer que les données sont exportées une seule fois
 
@@ -33,8 +36,12 @@ public class EndOfLevel : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !dataExported)
         {
+            /*remerciementsAnimation.SetTrigger("Remerciements");
+            collision.GetComponent<PlayerMovement>().StopPlayer();
+            collision.GetComponent<PlayerMovement>().enabled = false;*/
+
             DataToStore.instance.ProcessEndOfLevelData();   //On calcul nos taux de bonus / kill
-            FindDicoDatas();                                //On envoie nos données à EndOfLevel.cs
+            FindDicoDatas();                          //On envoie nos données à EndOfLevel.cs
             DataToStore.instance.ResetData(sceneToLoad);    //On reset nos dictionnaires pour le prochain niveau
 
             SceneManager.LoadScene(sceneToLoad);
@@ -97,14 +104,16 @@ public class EndOfLevel : MonoBehaviour
 
         // Vérifier si le fichier existe déjà
         bool fileExists = File.Exists(filePath);
+
+        if (fileExists) {
+            File.Delete(filePath);
+        }
+
         // Écrire les données dans le fichier
         using (StreamWriter writer = new StreamWriter(filePath, true))
         {
             // Ecrire les clés si le fichier n'existe pas
-            if (!fileExists)
-            {
-                writer.WriteLine(string.Join(",", uniqueKeys));
-            }
+            writer.WriteLine(string.Join(",", uniqueKeys));
 
             // Ecrire les valeurs
             var valueList = uniqueKeys.Select(key => values[key]).ToList();

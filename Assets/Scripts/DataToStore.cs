@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class DataToStore : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class DataToStore : MonoBehaviour
     public bool levelFinished = false;                  // Stocke l'état du niveau
     public string levelName = "Level01";                // Nom du niveau
     public CompositeCollider2D LevelCompoCol2D;
+
+    private string UploadFileName; // Nom du fichier à envoyer
 
     //Singleton pattern
     private void Awake()
@@ -43,6 +46,8 @@ public class DataToStore : MonoBehaviour
         StartCoroutine(StartTimer(levelName));
 
         LevelCompoCol2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<CompositeCollider2D>();
+
+        UploadFileName = Path.Combine(Application.dataPath, "GameData.csv");
     }
 
     //Initialise les champs importants pour le stockage des données du joueur)

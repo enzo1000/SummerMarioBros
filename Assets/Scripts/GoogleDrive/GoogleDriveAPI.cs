@@ -12,6 +12,7 @@ using System.Threading;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Globalization;
+using System.Threading.Tasks;
 
 public class GoogleDriveAPI : MonoBehaviour
 {
@@ -27,28 +28,11 @@ public class GoogleDriveAPI : MonoBehaviour
         instance = this;
     }
 
-    string UploadFileName;
-    string keyFilePath;
-
-#if UNITY_EDITOR
-    public static bool IsUnityEditor = true;
-#else
-    public static bool IsUnityEditor = false;
-#endif
+    string UploadFileName = Path.Combine(Application.dataPath, "GameData.csv");
+    string keyFilePath = Path.Combine(Application.streamingAssetsPath + "/key.p12");
 
     public async void SendData()
     {
-        if (IsUnityEditor)
-        {
-            UploadFileName = ".\\Assets\\GameData.csv";
-            keyFilePath = ".\\Assets\\StreamingAssets\\key.p12";
-        }
-        else
-        {
-            UploadFileName = ".\\SummerMario_Data\\GameData.csv";
-            keyFilePath = ".\\SummerMario_Data\\StreamingAssets\\key.p12";
-        }
-
         try
         {
             string serviceAccountEmail = "utilisateur01@unitysummermario.iam.gserviceaccount.com";
