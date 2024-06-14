@@ -9564,6 +9564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+  remerciementsAnimation: {fileID: 0}
 --- !u!483693784 &1020376630
 TilemapRenderer:
   m_ObjectHideFlags: 0
