@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        //transform.position = new Vector3(player.position.x, 2, -10);
         //Faite en sorte que la caméra ne puisse pas suivre le joueur en dehors de la bordure du monde
         minBound = DataToStore.instance.LevelCompoCol2D.bounds.min.x;
         maxBound = DataToStore.instance.LevelCompoCol2D.bounds.max.x;
@@ -35,6 +36,10 @@ public class CameraController : MonoBehaviour
         {
             // Bouger la caméra de manière fluide de sa position actuelle à la position du joueur (Uniquement sur l'axe X)
             transform.position = Vector3.SmoothDamp(cameraPositionX, playerPosition, ref velocity, timeOffset);
+        }
+        else
+        {
+            transform.position = new Vector3(7, 2, -10);
         }
     }
 }

@@ -11875,7 +11875,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Level02
-  remerciementsAnimation: {fileID: 1809231563}
 --- !u!483693784 &1020376630
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -24451,7 +24450,7 @@ GameObject:
   - component: {fileID: 1809231563}
   m_Layer: 5
   m_Name: Remerciements
-  m_TagString: Untagged
+  m_TagString: Remerciements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,7 +18,7 @@ public class EndOfLevel : MonoBehaviour
     public IDictionary<string, float> playerTimeInfo;
     public IDictionary<string, float> causeOfDeath;
 
-    public Animator remerciementsAnimation;
+    private Animator remerciementsAnimation;
 
     private bool dataExported = false; // Flag pour s'assurer que les données sont exportées une seule fois
 
@@ -32,19 +32,31 @@ public class EndOfLevel : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        remerciementsAnimation = GameObject.FindGameObjectWithTag("Remerciements").GetComponent<Animator>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !dataExported)
         {
-            /*remerciementsAnimation.SetTrigger("Remerciements");
-            collision.GetComponent<PlayerMovement>().StopPlayer();
-            collision.GetComponent<PlayerMovement>().enabled = false;*/
+            if (sceneToLoad == "EndOfDemo")
+            {
+                remerciementsAnimation.SetTrigger("Remerciements");
+                collision.GetComponent<PlayerMovement>().StopPlayer();
+                collision.GetComponent<PlayerMovement>().enabled = false;
+            }
 
             DataToStore.instance.ProcessEndOfLevelData();   //On calcul nos taux de bonus / kill
-            FindDicoDatas();                          //On envoie nos données à EndOfLevel.cs
+            FindDicoDatas();                                //On envoie nos données à EndOfLevel.cs
             DataToStore.instance.ResetData(sceneToLoad);    //On reset nos dictionnaires pour le prochain niveau
 
-            SceneManager.LoadScene(sceneToLoad);
+            if (sceneToLoad != "EndOfDemo")
+            {
+                SceneManager.LoadScene(sceneToLoad);
+            }
+
             dataExported = true; // mettre le flag à true pour éviter les exports dupliqués
         }
     }

@@ -11,6 +11,7 @@ TagManager:
   - Coins
   - LastPositionRegistered
   - PlayerSpawn
+  - Remerciements
   layers:
   - Default
   - TransparentFX
