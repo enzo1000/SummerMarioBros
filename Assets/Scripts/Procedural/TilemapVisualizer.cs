@@ -18,6 +18,9 @@ public class TilemapVisualizer : MonoBehaviour
     [SerializeField]
     private TileBase[] grassTopTiles, grassLeftTiles, grassRightTiles;
 
+    [SerializeField]
+    private TileBase platformLeftTile, platformMiddleTile, platformRightTile;
+
     // Start is called before the first frame update
     public void PaintGroundTiles(IEnumerable<Vector2Int> floorPosition)
     {
@@ -43,7 +46,9 @@ public class TilemapVisualizer : MonoBehaviour
     //Réutilisation paramétrée de PaintSingleTile
     public void PainSingleGrassTile(Vector2Int position, Vector2Int direction)
     {
+        //Random afin de sélectionner l'un des 3 types de tile de grass / autres tiles
         int rand = Random.Range(0, 3);
+
         if (direction == Vector2Int.up)
         {
             Vector2Int newPosition = position + Vector2Int.down;
@@ -59,8 +64,33 @@ public class TilemapVisualizer : MonoBehaviour
         else if (direction == Vector2Int.right)
         {
             Vector2Int newPosition = position + Vector2Int.left;
-            PaintSingleTile(backgroundTilemap, grassLeftTiles[rand], position);
-            PaintSingleTile(groundTilemap, groundRightTiles, newPosition);
+            //PaintSingleTile(backgroundTilemap, grassTopTiles[rand], position);
+            PaintSingleTile(groundTilemap, groundTopTiles, newPosition);
+        }
+    }
+
+    public void PaintSinglePlatformTile(Vector2Int position, Vector2Int direction)
+    {
+        if (direction == Vector2Int.left)
+        {
+            PaintSingleTile(groundTilemap, platformLeftTile, position);
+        }
+        else if (direction == Vector2Int.right)
+        {
+            PaintSingleTile(groundTilemap, platformRightTile, position);
+        }
+        else if (direction == Vector2Int.up)
+        {
+            PaintSingleTile(groundTilemap, platformMiddleTile, position);
+        }
+    }
+
+    private void ClearEnemy()
+    {
+        int numChildren = GameObject.FindWithTag("Enemy").transform.childCount;
+        for(int i = numChildren - 1; i >= 0; i--)
+        {
+            DestroyImmediate(GameObject.FindWithTag("Enemy").transform.GetChild(i).gameObject);
         }
     }
 
@@ -68,6 +98,7 @@ public class TilemapVisualizer : MonoBehaviour
     {
         groundTilemap.ClearAllTiles();
         backgroundTilemap.ClearAllTiles();
+        ClearEnemy();
     }
 }
 
